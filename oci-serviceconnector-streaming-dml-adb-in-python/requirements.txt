@@ -1,0 +1,6 @@
+cx_Oracle==8.3.0
+pathlib==1.0.1
+fdk==0.1.50
+pytest==5.4.3
+oci==2.90.0
+pandas==1.5.2
