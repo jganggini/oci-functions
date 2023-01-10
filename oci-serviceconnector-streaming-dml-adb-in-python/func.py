@@ -36,15 +36,6 @@ class Utility():
         except Exception as e:
             logger.error(str(e))
             raise
-    
-    # Extract files in wallet zip to a directory
-    def zipfile(file_zip_dir, temp_dir):
-       zipfile.ZipFile(file_zip_dir).extractall(temp_dir)
-
-    # Remove files from directory
-    def remove_files_from_directory(temp_dir):
-        for f in os.listdir(temp_dir):
-            os.remove(os.path.join(temp_dir, f))
 
 ################################
 #           Parameter          #
@@ -58,55 +49,69 @@ par_oci_adb_user_name_secret_ocid       = Utility.read_secret_value('ocid1.vault
 par_oci_adb_password_secret_ocid        = Utility.read_secret_value('ocid1.vaultsecret.oc1.iad.amaaaaaavoaa5zian2sgagsiqm5wdsyahbfn7ktylihyapk5v4zhvtaniema')
 par_oci_adb_wallet_password_secret_ocid = Utility.read_secret_value('ocid1.vaultsecret.oc1.iad.amaaaaaavoaa5ziaddhnxt56tjso6souyodoj2erffa2h3vmswhpzidd6f7q')
 par_oci_adb_service_name                = "adwdemo_high"
-par_oci_adb_wallet_location             = utl_path + '/_oci/adb_wallet/Wallet_adwdemo.zip'
-par_oci_adb_wallet_temp_dir             = utl_path + '/_oci/adb_wallet/zipfile_temp'
+par_oci_adb_wallet_location             = utl_path + '/_oci/adb_wallet'
 # [Parameter:oci_str] OCI Streaming
 par_oci_str_tbl_unique_key              = ["PER_RUT", "DEP_FECINI", "LIC_NUMLIC"]
 
 ################################
 #    Controlador de Eventos    #
 ################################
-def handler(ctx, data: io.BytesIO=None):
+def handler(ctx, data: io.BytesIO=None):       
     logger = logging.getLogger()
-    
+    var_data = data.getvalue()
+
     try:
-        logs = json.loads(data.getvalue())
-        logger.info('Received {} entries.'.format(len(logs)))
-        
-        # Decode [OCI Streaming]
-        for idx, item in enumerate(logs):            
-            if 'key' in item:
-                item['key'] = Utility.base64_decode(item['key'])
-            if 'value' in item:
-                item['value'] = Utility.base64_decode(item['value'])
-            if 'value' in item:
-                item['timestamp'] = str(item['timestamp'])
-
-            # df
-            df_value = json_normalize(json.loads(item['value']))
-            var_df = []
-            var_dml = str(df_value['op_type'][0])
+        if (var_data.decode(encoding='utf-8') != ''):
+            logs = json.loads(var_data)
+            logger.info('Received {} entries.'.format(len(logs)))
             
-            if(var_dml=='I'):
-                var_df = oci_str.get_select_after(df_value)
-            elif (var_dml=='U'):
-                df_after = oci_str.get_select_after(df_value)
-                df_before = oci_str.get_select_before(df_value)
-                var_df = oci_str.set_update_before(par_oci_str_tbl_unique_key, df_before, df_after)
-            elif (var_dml=='D'):
-                var_df = oci_str.get_select_before(df_value)
+            #Variables
+            var_key       = None
+            var_value     = None
+            var_timestamp = None
 
-            var_value = var_df.to_json(orient='records')[1:-1].replace('},{', '} {')
+            # Decode [OCI Streaming]
+            for idx, item in enumerate(logs):            
+                if 'key' in item:
+                    var_key = Utility.base64_decode(item['key'])
+                else:
+                    logger.warn('[OCI Streaming] No "key" in the message.')
+                
+                if 'value' in item:
+                    var_value = Utility.base64_decode(item['value'])
+                else:
+                    logger.warn('[OCI Streaming] No "Value" in the message.')
+                
+                if 'timestamp' in item:
+                    var_timestamp = str(item['timestamp'])
+                else:
+                    logger.error('[OCI Streaming] No "timestamp" in the message.')
+                    break
 
-            #print('==============='+var_dml+'===============')
-            #print(var_value + '\n')
+                # df
+                df_value = json_normalize(json.loads(var_value))
+                var_df = []
+                var_dml = str(df_value['op_type'][0])
+                
+                if(var_dml=='I'):
+                    var_df = oci_str.get_select_after(df_value)
+                elif (var_dml=='U'):
+                    df_after = oci_str.get_select_after(df_value)
+                    df_before = oci_str.get_select_before(df_value)
+                    var_df = oci_str.set_update_before(par_oci_str_tbl_unique_key, df_before, df_after)
+                elif (var_dml=='D'):
+                    var_df = oci_str.get_select_before(df_value)
 
-            # Execute procedure from Autnomous Database
-            logger.info('[INI]['+ str(idx) +'] Execute Stored Procedure from Autnomous Database...')
-            Utility.zipfile(par_oci_adb_wallet_location, par_oci_adb_wallet_temp_dir)            
-            oci_adb.execute_stored_procedure('utl_sp_load_data_from_adb_to_oci_streaming_poc', [var_dml, item['key'], var_value, item['timestamp']])
-            Utility.remove_files_from_directory(par_oci_adb_wallet_temp_dir)
+                var_value = var_df.to_json(orient='records')[1:-1].replace('},{', '} {')
 
+                #print('==============='+var_dml+'===============')
+                #print(var_value + '\n')
+
+                # Execute procedure from Autnomous Database
+                logger.info('[INI]['+ str(idx) +'] Execute Stored Procedure from Autnomous Database...')
+                oci_adb.execute_stored_procedure('utl_sp_load_data_from_adb_to_oci_streaming_poc', [var_dml, var_key, var_value, var_timestamp])
+        else:
+            logger.error('[OCI Streaming] No message.')
     except (Exception, ValueError) as e:
         logger.error(str(e))
         raise
@@ -144,8 +149,8 @@ class oci_adb():
             conn = oracledb.connect(user            = par_oci_adb_user_name_secret_ocid,
                                     password        = par_oci_adb_password_secret_ocid,
                                     dsn             = par_oci_adb_service_name,
-                                    config_dir      = par_oci_adb_wallet_temp_dir,
-                                    wallet_location = par_oci_adb_wallet_temp_dir,
+                                    config_dir      = par_oci_adb_wallet_location,
+                                    wallet_location = par_oci_adb_wallet_location,
                                     wallet_password = par_oci_adb_wallet_password_secret_ocid)
             
             # create a cursor
@@ -177,4 +182,4 @@ async def test_parse_request_with_data():
     assert 200 == status
     # python -m pytest -v -s --tb=long func.py
     # fn -v deploy --app app-streaming
-    # fn invoke app-streaming fn-data-manipulation-language-for-autonomous-database
+    # fn invoke app-streaming oci-serviceconnector-streaming-dml-adb-in-python
