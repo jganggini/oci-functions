@@ -51,7 +51,7 @@ par_oci_adb_wallet_password_secret_ocid = Utility.read_secret_value('ocid1.vault
 par_oci_adb_service_name                = "adwdemo_high"
 par_oci_adb_wallet_location             = utl_path + '/_oci/adb_wallet'
 # [Parameter:oci_str] OCI Streaming
-par_oci_str_tbl_unique_key              = ["PER_RUT", "DEP_FECINI", "LIC_NUMLIC"]
+par_oci_str_tbl_primary_key              = ["PER_RUT", "DEP_FECINI", "LIC_NUMLIC"]
 
 ################################
 #    Controlador de Eventos    #
@@ -68,7 +68,7 @@ def handler(ctx, data: io.BytesIO=None):
             #Variables
             var_key       = None
             var_value     = None
-            var_timestamp = None
+            var_offset    = None
 
             # Decode [OCI Streaming]
             for idx, item in enumerate(logs):            
@@ -82,10 +82,10 @@ def handler(ctx, data: io.BytesIO=None):
                 else:
                     logger.warn('[OCI Streaming] No "Value" in the message.')
                 
-                if 'timestamp' in item:
-                    var_timestamp = str(item['timestamp'])
+                if 'offset' in item:
+                    var_offset = str(item['offset'])
                 else:
-                    logger.error('[OCI Streaming] No "timestamp" in the message.')
+                    logger.error('[OCI Streaming] No "offset" in the message.')
                     break
 
                 # df
@@ -98,18 +98,18 @@ def handler(ctx, data: io.BytesIO=None):
                 elif (var_dml=='U'):
                     df_after = oci_str.get_select_after(df_value)
                     df_before = oci_str.get_select_before(df_value)
-                    var_df = oci_str.set_update_before(par_oci_str_tbl_unique_key, df_before, df_after)
+                    var_df = oci_str.set_update_before(par_oci_str_tbl_primary_key, df_before, df_after)
                 elif (var_dml=='D'):
                     var_df = oci_str.get_select_before(df_value)
+                else:
+                    logger.error(f'[OCI Streaming] Operation type {var_dml} not supported.')
+                    break
 
                 var_value = var_df.to_json(orient='records')[1:-1].replace('},{', '} {')
 
-                #print('==============='+var_dml+'===============')
-                #print(var_value + '\n')
-
                 # Execute procedure from Autnomous Database
                 logger.info('[INI]['+ str(idx) +'] Execute Stored Procedure from Autnomous Database...')
-                oci_adb.execute_stored_procedure('utl_sp_load_data_from_adb_to_oci_streaming_poc', [var_dml, var_key, var_value, var_timestamp])
+                oci_adb.execute_stored_procedure('sp_load_data_from_streaming', [var_dml, var_key, var_value, var_offset])
         else:
             logger.error('[OCI Streaming] No message.')
     except (Exception, ValueError) as e:
@@ -167,7 +167,7 @@ class oci_adb():
             logger.error(str(e))
             raise
 
-
+'''
 ############[pytest]############
 @pytest.mark.asyncio
 async def test_parse_request_with_data():
@@ -183,3 +183,4 @@ async def test_parse_request_with_data():
     # python -m pytest -v -s --tb=long func.py
     # fn -v deploy --app app-streaming
     # fn invoke app-streaming oci-serviceconnector-streaming-dml-adb-in-python
+'''

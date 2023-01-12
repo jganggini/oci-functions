@@ -14,9 +14,9 @@ par_message_key_03   = '16102234_2016-06-09 00:00:00_9977370'
 par_message_value_03 = '{"table": "LICMEDRAW.SIL_DEPOSITO", "op_type": "D", "op_ts": "2022-11-15 08:50:30.000000", "current_ts": "2022-11-15 08:50:30.100000", "pos": "00000000050010734003", "before": {"PER_RUT": 25102234, "DEP_FECINI": "2016-06-09 00:00:00", "FML_FORMUL": "3", "LIC_NUMLIC": 1077370, "DEP_DIALIC": "null", "TCT_TIPCTA": "V", "BAN_CODBAN": 12, "DEP_CTABAN": "123456789", "DEP_CORREOE": "correo@dominio.com", "DEP_AREAFONO": "32", "DEP_FONO": 1422300, "DEP_AREAFONO_COM": "null", "DEP_FONO_COM": "null", "DEP_CELULAR": 20788820, "DEP_FECTERVIGEN": "null", "DEP_LUGAR": "null", "DEP_ESTADO": "N", "DEP_FECGRA": "2016-07-05 21:17:33", "DEP_USUGRA": "ATRXLM", "DEP_FECACT": "2016-07-05 21:17:33", "DEP_USUACT": "ATRXLM", "DEP_CANAL": "null"}}'
 
 # [Parameter:adb] Autonomous Database
-par_oci_adb_user_name       = 'ADMIN'
-par_oci_adb_password        = '*****'
-par_oci_adb_wallet_password = '*****'
+par_oci_adb_user_name       = '******'
+par_oci_adb_password        = '*******'
+par_oci_adb_wallet_password = '********'
 
 def base64_encode(encoded):
     message_bytes = encoded.encode('utf-8')
