@@ -1,6 +1,6 @@
 [DEFAULT]
-user=ocid1.user.oc1..aaaaaaaawbh6e75hxk3st7athfu3ocaj76sbyewl5bf7f4pef6hs23aje7eq
+user=ocid1.user.oc1..**********************
 fingerprint=94:75:f2:54:c0:3f:60:e6:23:2a:ce:e9:95:0a:a2:68
-tenancy=ocid1.tenancy.oc1..aaaaaaaavl2ndgiiefoo2u4a7atlq2czcwyiu5zzb6rzwwpeyt5o2xmtaxwa
+tenancy=ocid1.tenancy.oc1..**********************
 region=us-ashburn-1
 key_file=./_oci/oracleidentitycloudservice_joel.ganggini-01-05-00-14.pem
