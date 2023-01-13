@@ -306,8 +306,6 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
 
 <!-- Contacto -->
 ## Contacto
-
-Joel Ganggini García - [@jganggini](https://www.linkedin.com/in/jganggini/) - jganggini@gmail.com<br/>
 Project Link: [https://github.com/jganggini](https://github.com/jganggini)
 
 <!-- MARKDOWN LINKS & IMAGES -->
