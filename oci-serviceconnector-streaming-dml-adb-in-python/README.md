@@ -50,7 +50,7 @@
 ## Caso de Uso
 
 El siguiente proyecto cubre la necesidad de migrar y transformar los datos en línea. 
-Actualmente se cuenta con una aplicación que cuenta con una base de datos Oracle (On-Premise) como repositorio de datos transaccionales. Algunos datos de la aplicación se deben de integrar en línea con otro conjunto de datos de otra base de datos sin afectar el performance de la aplicación.
+Actualmente se cuenta con una aplicación que tiene una base de datos Oracle (On-Premise) como repositorio de datos transaccionales. Algunos datos de la aplicación se deben de integrar en línea con otro conjunto de datos de otra base de datos sin afectar el performance de la aplicación.
 que cuenta con tablas transaccionales los datos son enviados por Golden Gate a OCI Streaming para que los mensajes enviados puedan ser modificados (DML) y posteriormente enviados a Autonomous Database por medio de OCI Functions gracias a la integración de Services Conector Hub ideal para describir, ejecutar y supervisar interacciones al mover datos entre servicios de Oracle Cloud Infrastructure.
 
 <strong>Servicios de OCI:</strong>
@@ -264,7 +264,7 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
   * `Step 09:` Vemos nuestra funcion desplegada en `app-streaming`.
 
 <!-- Ejecución Dataflow -->
-## Ejecución en OCI Data Flow
+## Ejecución en OCI Functions
 
 * Ingresamos a `OCI` y seguimos los siguientes Pasos:
 
