@@ -298,23 +298,21 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
 
 
 * [Funciones QuickStart en Cloud Shell](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionsquickstartcloudshell.htm)
-* [](https://docs.oracle.com/es-ww/iaas/Content/service-connector-hub/overview.htm)
-* [](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionsquickstartcloudshell.htm)
-* [](https://github.com/fnproject/fdk-python/blob/master/README.md)
-* [](https://docs.oracle.com/es-ww/iaas/Content/Functions/Concepts/functionsoverview.htm)
-* [](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionsinstallfncli.htm)
-* [](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionscreatefncontext.htm)
+* [Visión general de OCI Service Connector Hub](https://docs.oracle.com/es-ww/iaas/Content/service-connector-hub/overview.htm)
+* [Function development kit for Python](https://github.com/fnproject/fdk-python)
+* [Visión general de OCI Functions](https://docs.oracle.com/es-ww/iaas/Content/Functions/Concepts/functionsoverview.htm)
+* [Instalación de la CLI de Fn Project](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionsinstallfncli.htm)
 * [Dockerfile - Imágenes base de FDK y Linux](https://docs.oracle.com/en-us/iaas/Content/Functions/Tasks/functionsfdksandlinuxdistros_faqs.htm)
 
 <!-- Contacto -->
 ## Contacto
 
-Joel Ganggini García - [@jganggini](https://www.linkedin.com/in/jganggini/) - jganggini@gmail.com
+Joel Ganggini García - [@jganggini](https://www.linkedin.com/in/jganggini/) - jganggini@gmail.com<br/>
 Project Link: [https://github.com/jganggini](https://github.com/jganggini)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/jganggini/oci-data-flow/issues
+[issues-url]: https://github.com/jganggini/oci-functions/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/jganggini/
