@@ -88,11 +88,11 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
   par_oci_config                          = oci.config.from_file(utl_path + '/_oci/config')
   ```
 
-  * Descargamos el API Key de OCI y lo colocamos en la carpeta `.\_oci\..`:
+  * Descargamos el `API Key` de OCI y lo colocamos en la carpeta `.\_oci\..`:
     * oracleidentitycloudservice_joel.ganggini-01-05-00-14.pem
     * config
                     
-  * Para ello ingresamos a nuestra cuenta de `OCI` e ingresamos a nuestro perfil:
+  * Para ello ingresamos a nuestra cuenta de `OCI` e ingresamos a nuestro `perfil`:
     <p align="center">
       <img src="img/img-102.gif" width="1000">
     </p>
@@ -129,14 +129,14 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
     * tnsnames.ora
     * truststore.jks
                     
-  * Para ello ingresamos a nuestra cuenta de `OCI` e ingresamos a Autonomous Database:
+  * Para ello ingresamos a nuestra cuenta de `OCI` e ingresamos a `Autonomous Database`:
     <p align="center">
       <img src="img/img-103.gif" width="1000">
     </p>
 
 * <u>OCI Vault:</u></br>
 
-  * Codificamos en base64 los accesos de Autonomous Database:
+  * Codificamos en `base64` los accesos de `Autonomous Database`:
     * user_name
     * passowrd
     * wallet password
@@ -146,7 +146,7 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
       <img src="img/img-104.png" width="1000">
     </p>
 
-  * Luego ingresamos `OCI` e ingresamos a `OCI Vault`:
+  * Luego ingresamos a `OCI` e ingresamos los resultados en los `Secrets` de `OCI Vault`:
     <p align="center">
       <img src="img/img-105.gif" width="1000">
     </p>
@@ -178,7 +178,7 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
         "timestamp":1669165176693
     }]
     ```
-  * Codificamos en base64 el valor de las siguientes columnas para simular el envio de `OCI Streaming` a nuestro función:
+  * Codificamos en `base64` el valor de las siguientes columnas para simular el envio de `OCI Streaming` a nuestro función:
     * key
     * value
 
@@ -229,15 +229,15 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
     <img src="img/img-109.gif" width="1000">
   </p
 
-  * <strong>Step 01:</strong> Ingresamos a `OCI Functions`
-  * <strong>Step 02:</strong> Creamos la aplicacion `app-streaming`
-  * <strong>Step 03:</strong> Empezamos ejecutando los pasos del `1` al `7`. [Functions QuickStart on Cloud Shell - Oracle](https://docs.public.oneportal.content.oci.oraclecloud.com/en-us/iaas/Content/Functions/Tasks/functionsquickstartcloudshell.htm#functionsquickstart_cloudshell).
-  * <strong>Step 04:</strong> Seleccionamos `Functions` y creamos una función en `Code Editor`. [Creación de funciones en Code Editor - Oracle](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionscreatingfunctions-usingcodeeditor.htm).
-  * <strong>Step 05:</strong> Creamos un nuevo folder `oci-serviceconnector-streaming-dml-adb-in-python`.
-  * <strong>Step 06:</strong> Abrimos el Workspace creado anteriormente.
-  * <strong>Step 07:</strong> Pasamos nuestro codigo y abrimos el terminal seleccionando `func.py`.
-  * <strong>Step 08:</strong> Desplegamos nuestra funcion en `app-streaming`.
-    * Comentamos las ultimos lineas de `func.py` referentes a `pytest`.
+  * `Step 01:` Ingresamos a `OCI Functions`
+  * `Step 02:` Creamos la aplicacion `app-streaming`
+  * `Step 03:` Empezamos ejecutando los pasos del `1` al `7`. [Functions QuickStart on Cloud Shell - Oracle](https://docs.public.oneportal.content.oci.oraclecloud.com/en-us/iaas/Content/Functions/Tasks/functionsquickstartcloudshell.htm#functionsquickstart_cloudshell).
+  * `Step 04:` Seleccionamos `Functions` y creamos una función en `Code Editor`. [Creación de funciones en Code Editor - Oracle](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionscreatingfunctions-usingcodeeditor.htm).
+  * `Step 05:` Creamos un nuevo folder `oci-serviceconnector-streaming-dml-adb-in-python`.
+  * `Step 06:` Abrimos el Workspace creado anteriormente.
+  * `Step 07:` Pasamos nuestro codigo y abrimos el terminal seleccionando `func.py`.
+  * `Step 08:` Desplegamos nuestra funcion en `app-streaming`.
+    * Comentamos las ultimos lineas de `func.py` referentes a `pytest`.      
       ```python
       '''
       ############[pytest]############
@@ -261,7 +261,7 @@ Los SDK y la CLI de Oracle Cloud Infrastructure requieren información de config
       ```cmd
       fn -v deploy --app app-streaming
       ```
-  * <strong>Step 09:</strong> Vemos nuestra funcion desplegada en `app-streaming`.
+  * `Step 09:` Vemos nuestra funcion desplegada en `app-streaming`.
 
 <!-- Ejecución Dataflow -->
 ## Ejecución en OCI Data Flow
