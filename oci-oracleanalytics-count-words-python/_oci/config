@@ -1,0 +1,13 @@
+[CLOUDSHELL]
+user=ocid1.user.oc1..**********************
+fingerprint=94:75:f2:54:c0:3f:60:e6:23:2a:ce:e9:95:0a:a2:68
+tenancy=ocid1.tenancy.oc1..****************************
+region=us-ashburn-1
+key_file=./_oci/oracleidentitycloudservice_joel.ganggini-01-05-00-14.pem
+
+[OAC]
+user=ocid1.user.oc1..**********************
+fingerprint=94:75:f2:54:c0:3f:60:e6:23:2a:ce:e9:95:0a:a2:68
+tenancy=ocid1.tenancy.oc1....****************************
+region=us-ashburn-1
+key_file=/function/_oci/oracleidentitycloudservice_joel.ganggini-01-05-00-14.pem

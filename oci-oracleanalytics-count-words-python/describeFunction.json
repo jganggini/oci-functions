@@ -1,0 +1,18 @@
+{
+    "args": {
+        "textColumn": "REVIEW"
+    },
+    "funcMode": "executeFunction",
+    "input": {
+        "bucketName": "obj-demo",
+        "fileExtension": ".csv",
+        "fileName": "oac-fn-e99cd4fddb3844be89c7af6ea4bbeb76-input",
+        "method": "csv",
+        "rowID": "row_id"
+    },
+    "output": {
+        "bucketName": "obj-demo",
+        "fileExtension": ".csv",
+        "fileName": "oac-fn-e99cd4fddb3844be89c7af6ea4bbeb76-output"
+    }
+}
